@@ -1,0 +1,29 @@
+name: Publish packages and update Homebrew
+on:
+  push:
+    branches: [incoming]
+permissions:
+  contents: write
+concurrency:
+  group: publish-packages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: main
+      - name: Fetch package handoff
+        env:
+          INCOMING_SHA: ${{ github.event.after }}
+        run: git fetch --no-tags origin "$INCOMING_SHA"
+      - name: Validate and publish packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INCOMING_SHA: ${{ github.event.after }}
+        run: node scripts/publish.mjs
+      - name: Remove temporary package branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method DELETE repos/practicaljoyco/Masid-Downloads/git/refs/heads/incoming
