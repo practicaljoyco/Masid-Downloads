@@ -8,6 +8,7 @@ Apple silicon, macOS 15 or newer:
 
 ```sh
 brew tap practicaljoyco/masid-downloads https://github.com/practicaljoyco/Masid-Downloads.git
+brew trust --cask practicaljoyco/masid-downloads/masid
 brew install --cask practicaljoyco/masid-downloads/masid
 ```
 

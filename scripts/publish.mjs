@@ -56,7 +56,7 @@ if(!hash) {
  hash=createHash('sha256').update(await readFile(path.join('stable-assets',stableMac))).digest('hex');
 }
 await mkdir('Casks',{recursive:true});
-await writeFile('Casks/masid.rb',`cask "masid" do\n  version "${stableVersion}"\n  sha256 "${hash}"\n\n  url "https://github.com/${repo}/releases/download/v${stableVersion}/${stableMac}"\n  name "Masíd"\n  desc "Calm, local monitoring by Practical Joy Co."\n  homepage "https://github.com/${repo}"\n\n  depends_on arch: :arm64\n  depends_on macos: ">= :sequoia"\n  app "Masíd.app"\nend\n`);
+await writeFile('Casks/masid.rb',`cask "masid" do\n  version "${stableVersion}"\n  sha256 "${hash}"\n\n  url "https://github.com/${repo}/releases/download/v${stableVersion}/${stableMac}"\n  name "Masíd"\n  desc "Calm, local monitoring by Practical Joy Co."\n  homepage "https://github.com/${repo}"\n\n  depends_on arch: :arm64\n  depends_on macos: :sequoia\n  app "Masíd.app"\nend\n`);
 git('config','user.name','Practical Joy Co. releases');git('config','user.email','294439637+practicaljoyco@users.noreply.github.com');
 git('add','Casks/masid.rb');
 if(git('diff','--cached','--name-only').length) {git('commit','-m',`Update Masíd Homebrew cask to ${stableVersion}`);git('push','origin','HEAD:main');}
