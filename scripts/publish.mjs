@@ -12,6 +12,8 @@ if(!/^\d+\.\d+\.\d+$/.test(metadata.version) || !/^[a-f0-9]{40}$/.test(metadata.
 const {version}=metadata;
 const mac=`Masid-PracticalJoyCo_${version}_arm64-macos.zip`;
 const required=[mac,`Masid-PracticalJoyCo_${version}_x64-setup.exe`,`Masid-PracticalJoyCo_${version}_arm64-setup.exe`,'Install-Masid.ps1','INSTALL-WINDOWS.txt','SHA256SUMS.txt'];
+const verification=metadata.macVerification;
+if(verification?.bundleIdentifier!=='com.wxdge.Masid' || verification.version!==version || verification.signatureValid!==true || verification.archiveRoundTripValid!==true || verification.archiveSha256!==metadata.assets?.find(a=>a.name===mac)?.sha256) throw new Error('Mac package has no matching successful bundle/archive signature verification');
 if(!Array.isArray(metadata.assets) || metadata.assets.length!==required.length || required.some(n=>!metadata.assets.some(a=>a.name===n))) throw new Error('Incomplete package set');
 await mkdir('publish-assets',{recursive:true});
 for(const asset of metadata.assets) {
@@ -32,7 +34,7 @@ function lookup(tag) {
 const numbered=lookup(`v${version}`);
 const snapshot=numbered && !numbered.isDraft;
 const tag=snapshot?'next':`v${version}`;
-const notes=`Masíd ${version} by Practical Joy Co.\n\nUnsigned development builds. Windows can warn or block installation; macOS signing/notarization is not configured. GitHub/Homebrew do not supply OS trust. Native Windows hardware and installation validation remain pending.\n\nIncludes configurable CPU/GPU activity, memory-pressure and drive-space notifications; local drive names and graphs; Forest, Tangerine, Cerise, Lilac and Lime accents.\n\n${snapshot?'Latest development snapshot; numbered releases and the stable Homebrew cask stay unchanged.':'Apple-silicon Mac and Windows x64/ARM64 packages. Homebrew instructions are in the repository README.'}\n\nPublic package manifest includes source revision ${metadata.sourceCommit}.\n`;
+const notes=`Masíd ${version} by Practical Joy Co.\n\nWindows builds are unsigned. The Mac bundle is ad-hoc signed and passes integrity checks, but has no Developer ID/notarization; macOS may require approval. Windows can warn or block installation. GitHub/Homebrew do not supply OS trust. Native Windows hardware and installation validation remain pending.\n\nIncludes configurable CPU/GPU activity, memory-pressure and drive-space notifications; local drive names and graphs; Forest, Tangerine, Cerise, Lilac and Lime accents.\n\n${snapshot?'Latest development snapshot; numbered releases and the stable Homebrew cask stay unchanged.':'Apple-silicon Mac and Windows x64/ARM64 packages. Homebrew instructions are in the repository README.'}\n\nPublic package manifest includes source revision ${metadata.sourceCommit}.\n`;
 await writeFile('release-notes.md',notes);
 if(!lookup(tag)) gh('release','create',tag,'-R',repo,'--draft','--title',`Masíd ${version}${snapshot?' — development snapshot':''}`,'--notes-file','release-notes.md');
 if(snapshot) gh('release','edit',tag,'-R',repo,'--title',`Masíd ${version} — development snapshot`,'--notes-file','release-notes.md','--prerelease');

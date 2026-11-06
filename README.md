@@ -19,7 +19,7 @@ brew update
 brew upgrade --cask practicaljoyco/masid-downloads/masid
 ```
 
-The current package is an **unsigned development build**. Homebrew installs it but does not provide Apple signing/notarization. macOS may require approval in System Settings → Privacy & Security. The cask keeps Gatekeeper and quarantine enabled. No Intel Mac build is provided yet.
+The Mac package is a **development build with an ad-hoc bundle signature**. Bundle integrity is checked before and after ZIP extraction. It has no Developer ID/notarization; Homebrew does not provide Apple approval. macOS may require approval in System Settings → Privacy & Security. The cask keeps Gatekeeper and quarantine enabled. No Intel Mac build is provided yet.
 
 ## Install on Windows
 
@@ -35,6 +35,8 @@ Double-click the correct setup file, follow Install/Finish, then open Masíd fro
 ## What Masíd includes
 
 CPU, memory, storage, network, power, and process views; readable history graphs; local drive nicknames; SMART and drive temperatures where supported; optional notifications with adjustable CPU/GPU and drive-space limits; memory pressure alerts; Standard/Sassy copy; and Forest, Tangerine, Cerise, Lilac, and Lime accents. Missing sensors stay unavailable. CPU/GPU activity reminders describe workload, not hardware faults. CPU/GPU temperature and fan providers are not implemented.
+
+**Mac 0.0.3 had a packaging/signature defect and must be upgraded to 0.0.4 or newer.**
 
 ## Automatic updates
 
