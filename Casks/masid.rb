@@ -8,6 +8,6 @@ cask "masid" do
   homepage "https://github.com/practicaljoyco/Masid-Downloads"
 
   depends_on arch: :arm64
-  depends_on macos: ">= :sequoia"
+  depends_on macos: :sequoia
   app "Masíd.app"
 end
