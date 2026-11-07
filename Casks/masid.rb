@@ -1,8 +1,8 @@
 cask "masid" do
-  version "0.0.4"
-  sha256 "46a2ba473219bb11763e427938c4a233dce64fa6d81efa965a1ed1e79c6f20cc"
+  version "0.0.5"
+  sha256 "9829710b617defcd7add88ffdf1af6b17f56951cb0b92a6787661fa3031408f3"
 
-  url "https://github.com/practicaljoyco/Masid-Downloads/releases/download/v0.0.4/Masid-PracticalJoyCo_0.0.4_arm64-macos.zip"
+  url "https://github.com/practicaljoyco/Masid-Downloads/releases/download/v0.0.5/Masid-PracticalJoyCo_0.0.5_arm64-macos.zip"
   name "Masíd"
   desc "Calm, local monitoring by Practical Joy Co."
   homepage "https://github.com/practicaljoyco/Masid-Downloads"
