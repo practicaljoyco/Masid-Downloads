@@ -1,10 +1,10 @@
 cask "masid" do
-  version "0.0.5"
-  sha256 "9829710b617defcd7add88ffdf1af6b17f56951cb0b92a6787661fa3031408f3"
+  version "1.0.0"
+  sha256 "4e4a9f1b73df27f00b3badfbe9629adee47559a0f906e5f62dc14a76b0c6ec9e"
 
-  url "https://github.com/practicaljoyco/Masid-Downloads/releases/download/v0.0.5/Masid-PracticalJoyCo_0.0.5_arm64-macos.zip"
+  url "https://github.com/practicaljoyco/Masid-Downloads/releases/download/v1.0.0/Masid-QolophonStudio_1.0.0_arm64-macos.zip"
   name "Masíd"
-  desc "Calm, local monitoring by Practical Joy Co."
+  desc "Calm, local monitoring by Qolophon Studio."
   homepage "https://github.com/practicaljoyco/Masid-Downloads"
 
   depends_on arch: :arm64
